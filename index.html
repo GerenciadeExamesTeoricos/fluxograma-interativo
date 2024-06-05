@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fluxograma Interativo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            background-color: #f4f4f9;
+        }
+        .step {
+            display: none;
+            margin-top: 20px;
+        }
+        .step.active {
+            display: block;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div id="fluxograma">
+        <div id="inicio" class="step active">
+            <p>DETRANNET Fechar a Turma</p>
+            <button onclick="nextStep('turmaFechada')">A turma está fechada?</button>
+        </div>
+
+        <div id="turmaFechada" class="step">
+            <p>A turma está fechada?</p>
+            <button onclick="nextStep('simProcedimento')">Sim</button>
+            <button onclick="nextStep('naoRelatorio')">Não</button>
+        </div>
+
+        <div id="simProcedimento" class="step">
+            <p>Procedimento de Identificação por Biometria</p>
+            <button onclick="nextStep('identificacaoSucesso')">A identificação biométrica foi bem sucedida?</button>
+        </div>
+
+        <div id="naoRelatorio" class="step">
+            <p>Consulte o Relatório "Retorno Agendamentos"</p>
+        </div>
+
+        <div id="identificacaoSucesso" class="step">
+            <p>A identificação biométrica foi bem sucedida?</p>
+            <button onclick="nextStep('simEmissao')">Sim</button>
+            <button onclick="nextStep('naoContingencia')">Não</button>
+        </div>
+
+        <div id="simEmissao" class="step">
+            <p>Emissão de Certificado</p>
+            <button onclick="nextStep('ocorreuSemIntercorrencias')">O exame ocorreu sem intercorrências?</button>
+        </div>
+
+        <div id="naoContingencia" class="step">
+            <p>Procedimento de Contingência</p>
+        </div>
+
+        <div id="ocorreuSemIntercorrencias" class="step">
+            <p>O exame ocorreu sem intercorrências?</p>
+            <button onclick="nextStep('fim')">Sim</button>
+            <button onclick="nextStep('naoIdentificarCausa')">Não</button>
+        </div>
+
+        <div id="fim" class="step">
+            <p>Processo Concluído</p>
+        </div>
+
+        <div id="naoIdentificarCausa" class="step">
+            <p>Qual a causa?</p>
+            <button onclick="nextStep('faltaDeEnergia')">Falta de Energia</button>
+            <button onclick="nextStep('quedaDeEnergia')">Queda de Energia</button>
+            <button onclick="nextStep('speOffline')">SPE off-line</button>
+            <button onclick="nextStep('erroNoEnvio')">Erro no Envio</button>
+        </div>
+
+        <div id="faltaDeEnergia" class="step">
+            <p>Causa: Falta de Energia</p>
+        </div>
+
+        <div id="quedaDeEnergia" class="step">
+            <p>Causa: Queda de Energia</p>
+        </div>
+
+        <div id="speOffline" class="step">
+            <p>Causa: SPE off-line</p>
+        </div>
+
+        <div id="erroNoEnvio" class="step">
+            <p>Causa: Erro no Envio</p>
+        </div>
+    </div>
+
+    <script>
+        function nextStep(stepId) {
+            const currentStep = document.querySelector('.step.active');
+            const nextStep = document.getElementById(stepId);
+
+            if (currentStep) {
+                currentStep.classList.remove('active');
+            }
+            if (nextStep) {
+                nextStep.classList.add('active');
+            }
+        }
+    </script>
+</body>
+</html>
